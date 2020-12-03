@@ -1,9 +1,11 @@
+import { OrderBody } from './Order'
+
 
 const baseUrl: string = 'http://localhost:8080'
 
 class Api {
-     public placeOrder() {
-         return this.__request('POST', `${baseUrl}/v1/placeOrder`)
+     public placeOrder(body: OrderBody) {
+         return this.__request('POST', `${baseUrl}/v1/placeOrder`, body)
      }
 
     public async __request(method: string, uri: string, body?: any){
@@ -20,8 +22,9 @@ class Api {
             }
             return response.json()
         } catch (error) {
-            const parsedError = JSON.parse(error.message)
-            apiError = JSON.stringify(parsedError.json)
+            alert('I am here')
+            console.log(error)
+            apiError = error
         }
         console.error(`Error sending API request to ${uri} ${method}: ${apiError}`)
         throw new Error(apiError)
