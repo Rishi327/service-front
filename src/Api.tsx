@@ -1,17 +1,16 @@
 import { OrderBody } from './Order'
-
-
 const baseUrl: string = 'http://localhost:8080'
 
 class Api {
      public placeOrder(body: OrderBody) {
-         return this.__request('POST', `${baseUrl}/v1/placeOrder`, body)
+         return this.__request('POST', `${baseUrl}/v1/placeOrder`, JSON.stringify(body))
      }
 
     public async __request(method: string, uri: string, body?: any){
         let apiError: any
         try {
-            const response = await fetch(uri, {method, body: JSON.stringify(body)})
+            const response = await fetch(uri, {method, body: body})
+            console.log(response)
             if(!response.ok){
                 const packagedError = {
                     json: await response.json(),
@@ -22,9 +21,8 @@ class Api {
             }
             return response.json()
         } catch (error) {
-            alert('I am here')
             console.log(error)
-            apiError = error
+            apiError = JSON.parse(error)
         }
         console.error(`Error sending API request to ${uri} ${method}: ${apiError}`)
         throw new Error(apiError)

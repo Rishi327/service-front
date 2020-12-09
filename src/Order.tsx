@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useForm} from 'react-hook-form'
 import api from './Api'
 
@@ -11,15 +11,26 @@ export interface OrderBody {
   state: String,
   zip: String,
   order: string,
+  preferredStore: string,
 }
 const Order = () => {                             
-    const {register, handleSubmit} = useForm();
+  const { register, handleSubmit} = useForm();
 
-    const onSubmit = async (data: OrderBody) => {
+    const onSubmit = async (data: OrderBody, e: any) => {
         data.state = 'MO'
-        await api.placeOrder(data)
-     console.log(data)
+        // try {
+        //   alert('Going in...')
+          const placeOrder = await api.placeOrder(data)
+          console.log("******************************")
+          console.log(placeOrder)
+        //   alert('Getting out...')
+        // } catch(error){
+        //   console.log('Failed to send order request...')
+        //   console.log(error)
+        // }
+        // e.target.reset()
   }
+  
     return (
       <div className="relative flex items-top justify-center mt-20 bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
         <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -221,12 +232,36 @@ const Order = () => {
                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                   ></textarea>
                 </div>
+                <div className="flex flex-col mt-2">
+                  <label htmlFor="tel" className="hidden">
+                    Preferred Grocery Store
+                  </label>
+                  <select name="preferredStore" className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none" ref={register}>
+                    <option value="">Preferred Grocery Store</option>
+                    <option value="seema">Seema</option>
+                    <option value="desi-bazaar">Desi Bazaar</option>
+                  </select>
+                </div>
+                <div className="flex flex-col mt-2">
+                  <label htmlFor="tel" className="hidden">
+                    Terms and Conditions 
+                  </label>
+                  <div className='flex'>
+                    <div>
+                  <input type="checkbox" required={true} name="terms" ref={register} />
+                  </div> 
+                <div className='pl-2'>
+                      I agree to GGhar <a className='text-blue-800' href='#'> Terms of Service </a> and <a className='text-blue-800' href='#'> Privacy Policy</a>
+                </div>
+                  </div>
+                 
+                </div>
 
                 <button
                   type="submit"
                   className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-indigo-500 transition ease-in-out duration-300"
-                >
-                  Submit
+              >
+                Submit
                 </button>
               </form>
             </div>
