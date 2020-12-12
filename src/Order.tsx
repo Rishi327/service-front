@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {useForm} from 'react-hook-form'
+import Swal from 'sweetalert2'
 import api from './Api'
 
 export interface OrderBody {
@@ -18,17 +19,24 @@ const Order = () => {
 
     const onSubmit = async (data: OrderBody, e: any) => {
         data.state = 'MO'
-        // try {
-        //   alert('Going in...')
+        try {
           const placeOrder = await api.placeOrder(data)
-          console.log("******************************")
-          console.log(placeOrder)
-        //   alert('Getting out...')
-        // } catch(error){
-        //   console.log('Failed to send order request...')
-        //   console.log(error)
-        // }
-        // e.target.reset()
+          Swal.fire({
+            icon: 'success',
+            title: 'Your Order was placed sucessfully',
+            showConfirmButton: false,
+            timer: 3000
+          })
+        } catch(error){
+          console.log('Failed to send order request...')
+          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Please Try Again.',
+          })
+        }
+        e.target.reset()
   }
   
     return (
