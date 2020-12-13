@@ -41,7 +41,7 @@ const Order = () => {
   
     return (
       <div className="relative flex items-top justify-center mt-20 bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
-     <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
           <div className="mt-8 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="p-6 mr-2 bg-gray-100 dark:bg-gray-800 sm:rounded-lg">
@@ -58,8 +58,8 @@ const Order = () => {
                     <li className={listClass}>Pay on delivery</li>
                   </ul>
                 </div>
-              </div> 
-              
+              </div>
+
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="p-6 flex flex-col justify-center"
@@ -204,15 +204,31 @@ const Order = () => {
                     </div>
                     <div className="pl-2">
                       I agree to GGhar{" "}
-                      <a className="text-blue-800" href="#">
+                      <span
+                        className="text-blue-800 cursor-pointer	"
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Terms of Service",
+                            text: "asdfjalsdjflajsdlfjalsdfjlasjdflajdslfjalsjdlajsdlfjalsdjflajsdflajsdlfjalsdjflajsdflajsdlfj"
+                          });
+                        }}
+                      >
                         {" "}
                         Terms of Service{" "}
-                      </a>{" "}
+                      </span>{" "}
                       and{" "}
-                      <a className="text-blue-800" href="#">
+                      <span
+                        className="text-blue-800 cursor-pointer	"
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Privacy Policy",
+                            html: '<h1> yeah!! </h1>'
+                          });
+                        }}
+                      >
                         {" "}
                         Privacy Policy
-                      </a>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -224,10 +240,10 @@ const Order = () => {
                   Submit
                 </button>
               </form>
-              </div>
             </div>
           </div>
         </div>
+      </div>
     );
 }
 
