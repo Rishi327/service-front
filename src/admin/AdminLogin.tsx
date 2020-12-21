@@ -2,22 +2,27 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import Auth from '../Auth'
+import api from "../Api"
+
+
 type FormValues = {
   pass: string;
 };
-
 const AdminLogin = () => {
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit = async (data: FormValues, e: any) => {
-
     try {
-      Auth.encryptPass(data.pass)
-    } catch (error) {
-      console.log("Failed to login to admin");
+      const encrypted = await Auth.encryptPass(data.pass)
+      const updatedBody = {
+         password: encrypted
+      }
+        await api.adminAuth(updatedBody)
+           
+       } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: `Something went wrong! Please Try Again. ${error}`
+        text: `Something went wrong! Please Try Again.`
       });
     }
     e.target.reset();

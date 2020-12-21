@@ -1,6 +1,12 @@
 import { OrderBody } from './Order'
 const baseUrl: string = 'http://localhost:8080'
 
+function setHeaders() {
+  const headers = {
+    "Content-Type": "application/json"
+  }
+  return headers
+}
 class Api {
   public placeOrder(body: OrderBody) {
     return this.__request(
@@ -10,16 +16,17 @@ class Api {
     );
   }
   public getpublicKey() {
-    const headers = {
-      "Content-Type": "application/json"
-    };
-    return this.__request("GET", `${baseUrl}/v1/getPublicKey`, headers);
+    return this.__request("GET", `${baseUrl}/v1/getPublicKey`);
+  }
+  public adminAuth(body: object) {
+      return this.__request('POST', `${baseUrl}/v1/admin/login`, JSON.stringify(body))
   }
 
   public async __request(method: string, uri: string, body?: any) {
     let apiError: any;
+    const headers = setHeaders()
     try {
-      const response = await fetch(uri, { method, body: body });
+      const response = await fetch(uri, {headers, method, body: body });
       console.log(response);
       if (!response.ok) {
         const packagedError = {

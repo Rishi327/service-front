@@ -4,7 +4,7 @@ import nodeRSA from "node-rsa";
 
 class Auth {
   private async getPulbicKey() {
-    return api.getpublicKey();
+    return await api.getpublicKey();
   }
   
   private encrypt(pem: string, password: string) {
@@ -13,7 +13,7 @@ class Auth {
   }
   public async encryptPass(password: string) {
       const pem = await this.getPulbicKey()
-       return this.encrypt(pem, password) 
+       return this.encrypt(pem.key, password) 
   }
 }
 export default new Auth();
