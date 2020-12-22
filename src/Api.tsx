@@ -1,12 +1,21 @@
 import { OrderBody } from './Order'
+import auth from "../src/Auth";
 const baseUrl: string = 'http://localhost:8080'
 
 function setHeaders() {
-  const headers = {
-    "Content-Type": "application/json"
+  const token = auth.getToken()
+  alert(token)
+  let headers
+  if(!token) {
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    return headers
   }
+  headers = { Authorization: `Bearer ${token}`}
   return headers
 }
+
 class Api {
   public placeOrder(body: OrderBody) {
     return this.__request(
