@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import {Redirect} from 'react-router-dom'
 import Swal from "sweetalert2";
-import Auth from '../Auth'
+import auth from '../../src/Auth'
 import api from "../Api"
 
 type FormValues = {
@@ -11,17 +11,20 @@ type FormValues = {
 const AdminLogin = () => {
   const [adminLogin, setadminLogin] = useState(false);
   const { register, handleSubmit } = useForm<FormValues>();
+   useEffect(() => {
+      setadminLogin(auth.isAdmin());
+    }, []);
   const onSubmit = async (data: FormValues, e: any) => {
     try {
-      const encrypted = await Auth.encryptPass(data.pass)
+      const encrypted = await auth.encryptPass(data.pass)
       const updatedBody = {
          password: encrypted
       }       
       const { token } = await api.adminAuth(updatedBody)
-      Auth.expireCookie(token)
-      Auth.setCookie('token', token)
-      Auth.setCookie('isAdmin', 'true')
-      setadminLogin(Auth.isAdmin())
+      auth.expireCookie(token)
+      auth.setCookie('token', token)
+      auth.setCookie('isAdmin', 'true')
+      setadminLogin(auth.isAdmin());
        } catch (error) {
       Swal.fire({
         icon: "error",
@@ -31,9 +34,9 @@ const AdminLogin = () => {
     }
     e.target.reset();
   };
-  // if (adminLogin) {
-  //   return <Redirect to="/app/admin/" />;
-  // } 
+  if (adminLogin) {
+    return <Redirect to="/app/admin/" />;
+  } 
   
   const AdminLoginForm = (
      <form onSubmit={handleSubmit(onSubmit)}>

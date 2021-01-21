@@ -4,7 +4,6 @@ const baseUrl: string = 'http://localhost:8080'
 
 function setHeaders() {
   const token = auth.getToken()
-  alert(token)
   let headers
   if(!token) {
     const headers = {
