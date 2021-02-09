@@ -203,7 +203,7 @@ const Order = () => {
                       />
                     </div>
                     <div className="pl-2">
-                      I agree to Ghar{" "}
+                      I agree to Hodor{" "}
                       <span
                         className="text-blue-800 cursor-pointer	"
                         onClick={() => {

@@ -1,11 +1,13 @@
 import React from "react";
+import Logout from './AdminLogout'
+import { NavLink } from "react-router-dom";
 const AdminSidebar = () => {
   return (
     <div>
       <nav className="flex flex-col bg-purple-900 w-64 h-screen px-4 tex-gray-900 border border-purple-900">
         <div className="flex flex-wrap mt-6 mb-4 ml-10">
-          <div className="w-1/2 ml-4">
-            <h3 className="text-white">Ghar-Admin</h3>
+          <div className=" ml-4">
+            <h3 className="text-white font-bold">Hodor-Admin</h3>
           </div>
         </div>
         <hr />
@@ -19,6 +21,7 @@ const AdminSidebar = () => {
                         4h4V4h-4m-6 10h4v-4h-4m-6 4h4v-4H4m0 10h4v-4H4m6
                         4h4v-4h-4M4 8h4V4H4v4z"
                   ></path>
+                  \
                 </svg>
               </span>
               <a href="#">
@@ -116,6 +119,30 @@ const AdminSidebar = () => {
               <a href="#">
                 <span className="ml-2">Settings</span>
               </a>
+            </li>
+            <li className="mb-2 px-4 py-4 text-gray-100 flex flex-row  border-gray-300 hover:text-black   hover:bg-gray-300  hover:font-bold rounded rounded-lg">
+              <span>
+                <svg
+                  className="fill-current h-5 w-5 "
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7 3C8.86384 3 10.4299 4.27477 10.874 6H19V8H10.874C10.4299 9.72523 8.86384 11 7 11C4.79086 11 3 9.20914 3 7C3 4.79086 4.79086 3 7 3ZM7 9C8.10457 9 9 8.10457 9 7C9 5.89543 8.10457 5 7 5C5.89543 5 5 5.89543 5 7C5 8.10457 5.89543 9 7 9Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17 20C15.1362 20 13.5701 18.7252 13.126 17H5V15H13.126C13.5701 13.2748 15.1362 12 17 12C19.2091 12 21 13.7909 21 16C21 18.2091 19.2091 20 17 20ZM17 18C18.1046 18 19 17.1046 19 16C19 14.8954 18.1046 14 17 14C15.8954 14 15 14.8954 15 16C15 17.1046 15.8954 18 17 18Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <Logout />
             </li>
           </ul>
         </div>

@@ -22,11 +22,13 @@ class Auth {
   public getToken() {
      return cookies.get('token')
   }
-  public expireCookie(token: any) {
-    return cookies.expire(token)
-  }
+  
   public isAdmin() {
     return !!cookies.get('isAdmin')
+  }
+  public expireCookie() {
+    cookies.expire('isAdmin')
+    cookies.expire('token')
   }
 }
 export default new Auth();

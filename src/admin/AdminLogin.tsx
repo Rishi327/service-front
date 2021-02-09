@@ -21,7 +21,7 @@ const AdminLogin = () => {
          password: encrypted
       }       
       const { token } = await api.adminAuth(updatedBody)
-      auth.expireCookie(token)
+      // auth.expireCookie(token)
       auth.setCookie('token', token)
       auth.setCookie('isAdmin', 'true')
       setadminLogin(auth.isAdmin());
