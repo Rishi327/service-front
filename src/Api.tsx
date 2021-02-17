@@ -15,6 +15,12 @@ function setHeaders() {
   return headers
 }
 
+function setNewToken(token: string) {
+  if(token) {
+    auth.setCookie('token', token)
+  }
+}
+
 class Api {
   public placeOrder(body: OrderBody) {
     return this.__request(
@@ -44,10 +50,17 @@ class Api {
         };
         throw new Error(JSON.stringify(packagedError));
       }
+      const token: any = response.headers
+      setNewToken(token['refreshedToken'])
       return response.json();
     } catch (error) {
       console.log(error);
       apiError = JSON.parse(error);
+      if(apiError.status === 403) {
+        auth.expireCookie()
+        window.location.href = ('/')
+        return
+      }
     }
     console.error(`Error sending API request to ${uri} ${method}: ${apiError}`);
     throw new Error(apiError);
