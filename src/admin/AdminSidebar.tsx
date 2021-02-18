@@ -63,7 +63,7 @@ const AdminSidebar = () => {
                 </svg>
               </span>
               <a href="#">
-                <span className="ml-2">Milestones</span>
+                <span className="ml-2">Orders</span>
               </a>
             </li>
             <li className="mb-2 px-4 py-4 text-gray-100 flex flex-row  border-gray-300 hover:text-black   hover:bg-gray-300  hover:font-bold rounded rounded-lg">
@@ -91,7 +91,7 @@ const AdminSidebar = () => {
                 </svg>
               </span>
               <a href="#">
-                <span className="ml-2">Tasks</span>
+                <span className="ml-2">Alerts</span>
               </a>
             </li>
             <li className="mb-2 px-4 py-4 text-gray-100 flex flex-row  border-gray-300 hover:text-black   hover:bg-gray-300  hover:font-bold rounded rounded-lg">

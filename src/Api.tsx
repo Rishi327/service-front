@@ -50,8 +50,8 @@ class Api {
         };
         throw new Error(JSON.stringify(packagedError));
       }
-      const token: any = response.headers
-      setNewToken(token['refreshedToken'])
+      // const token: any = response.headers
+      // setNewToken(token['refreshedToken'])
       return response.json();
     } catch (error) {
       console.log(error);
