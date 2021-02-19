@@ -62,9 +62,9 @@ const AdminSidebar = () => {
                   ></path>
                 </svg>
               </span>
-              <a href="#">
-                <span className="ml-2">Orders</span>
-              </a>
+                <NavLink className="ml-2" to={'/app/admin/allOrders'}>
+                    Orders
+                </NavLink>
             </li>
             <li className="mb-2 px-4 py-4 text-gray-100 flex flex-row  border-gray-300 hover:text-black   hover:bg-gray-300  hover:font-bold rounded rounded-lg">
               <span>

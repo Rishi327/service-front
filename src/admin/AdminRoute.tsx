@@ -6,20 +6,21 @@ function AdminRoute(input: any) {
     const {component, ...rest} = input  
     const Component: any = component
     return (
-        <Route 
-          {...rest}
-          render={props => 
-          auth.isAdmin()
-          ? (<Component {...props} />)
-          : (<Redirect to={
-            {
-                pathname: '/admin/login',
-                state: {from: props.location}
-            }
-          } 
-          />)
+      <Route
+        {...rest}
+        render={props =>
+          auth.isAdmin() ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/app/admin/login",
+                state: { from: props.location }
+              }}
+            />
+          )
         }
-        />
-    )
+      />
+    );
 }
 export default AdminRoute

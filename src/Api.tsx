@@ -11,7 +11,9 @@ function setHeaders() {
     };
     return headers
   }
-  headers = { Authorization: `Bearer ${token}`}
+  headers = { 
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`}
   return headers
 }
 
@@ -35,6 +37,9 @@ class Api {
   public adminAuth(body: object) {
       return this.__request('POST', `${baseUrl}/v1/admin/login`, JSON.stringify(body))
   }
+  public allOrders() {
+      return this.__request("GET", `${baseUrl}/v1/admin/getAllOrders`);
+  }
 
   public async __request(method: string, uri: string, body?: any) {
     let apiError: any;
@@ -50,8 +55,8 @@ class Api {
         };
         throw new Error(JSON.stringify(packagedError));
       }
-      // const token: any = response.headers
-      // setNewToken(token['refreshedToken'])
+      const token: any = response.headers
+      setNewToken(token['refreshedToken'])
       return response.json();
     } catch (error) {
       console.log(error);
