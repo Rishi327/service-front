@@ -5,10 +5,9 @@ import AdminRoute from "../../src/admin/AdminRoute";
 import AllOrders from '../admin/AdminOrders'
 const AdminApp = () => {
     return (
-      <div>
+      <div className='flex'> 
        <AdminSidebar />
-      
-      <div>
+      <div className='w-full'>
         <Switch>
           <AdminRoute exact path='/app/admin/allOrders' component={AllOrders} />
           <Redirect to='/app/admin' />

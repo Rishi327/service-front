@@ -59,6 +59,8 @@ class Api {
       setNewToken(token['refreshedToken'])
       return response.json();
     } catch (error) {
+
+      // TODO: 403 issue needs to be fixed 
       console.log(error);
       apiError = JSON.parse(error);
       if(apiError.status === 403) {
