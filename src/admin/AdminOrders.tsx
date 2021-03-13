@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactToPrint from "react-to-print";
 import api from "../Api";
 
 const AllOrders = () => {
@@ -7,12 +8,15 @@ const [orders, setOrders] = useState<any[]>([]);
 useEffect(() => {
     async function fetchOrders() {
         const response = await api.allOrders();
-        console.log(response)
         setOrders(response.allOrders);
     }
     fetchOrders();
  }, []);
- 
+ const printOrders = (itemName: any) => {
+   let pro = document.body.textContent
+    pro = itemName
+    window.print()
+ }
 
  return (
    <div>
@@ -30,6 +34,7 @@ useEffect(() => {
                <th className="text-left p-3 px-5">Address</th>
                <th className="text-left p-3 px-5">Order</th>
                <th className="text-left p-3 px-5">Store</th>
+               <th className="text-left p-3 px-5">Actions</th>
                <th></th>
              </tr>
              {orders.map(item => {
@@ -42,7 +47,8 @@ useEffect(() => {
                      {item.address} {item.city} {item.state} {item.zip}
                    </td>
                    <td className="p-3 px-5">{item.order}</td>
-                   <td className="p-3 px-5">{item.preferredStore}</td>
+                   <td className="p-3 px-5">{item.preferredStore ? item.preferredStore : 'No store was selected'}</td>
+               <td className="p-3 px-5">{<button onClick={() => printOrders(item.name)}>Print</button>}</td>
                  </tr>
                );
              })}
