@@ -11,6 +11,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "add": "^2.0.6",
     "autoprefixer": "^10.0.4",
     "cookies-js": "^1.2.3",
     "node-rsa": "^1.1.1",
@@ -18,14 +19,17 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.12.2",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-to-print": "^2.12.3",
+    "redux": "^4.0.5",
     "sweetalert2": "^10.12.3",
     "tailwindcss": "^2.0.1",
     "tslint": "^6.1.3",
     "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "tailwind:css": "tailwind build src/css/main.css --config tailwind.config.js --output src/generated/tailwind.css",
@@ -55,6 +59,7 @@
   },
   "devDependencies": {
     "@types/node-rsa": "^1.0.0",
+    "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.6"
   }
 }

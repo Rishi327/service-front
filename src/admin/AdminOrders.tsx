@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactToPrint from "react-to-print";
+import { NavLink } from 'react-router-dom'
 import api from "../Api";
 
 const AllOrders = () => {
@@ -12,12 +12,6 @@ useEffect(() => {
     }
     fetchOrders();
  }, []);
- const printOrders = (itemName: any) => {
-   let pro = document.body.textContent
-    pro = itemName
-    window.print()
- }
-
  return (
    <div>
      <div className="text-gray-900 bg-gray-200">
@@ -47,8 +41,8 @@ useEffect(() => {
                      {item.address} {item.city} {item.state} {item.zip}
                    </td>
                    <td className="p-3 px-5">{item.order}</td>
-                   <td className="p-3 px-5">{item.preferredStore ? item.preferredStore : 'No store was selected'}</td>
-               <td className="p-3 px-5">{<button onClick={() => printOrders(item.name)}>Print</button>}</td>
+                 <td className="p-3 px-5">{item.preferredStore ? item.preferredStore : 'No store was selected'}</td>
+               <td className="p-3 px-5">{<NavLink to={`/app/admin/allOrders/${item._id}`}>View Order </NavLink>}</td>
                  </tr>
                );
              })}
