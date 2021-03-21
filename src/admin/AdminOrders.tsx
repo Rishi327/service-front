@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from 'react-router-dom'
 import api from "../Api";
+import ReactExport from "react-export-excel";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const AllOrders = () => {
 const [orders, setOrders] = useState<any[]>([]);
@@ -9,9 +13,15 @@ useEffect(() => {
     async function fetchOrders() {
         const response = await api.allOrders();
         setOrders(response.allOrders);
+        console.log(orders)
     }
     fetchOrders();
  }, []);
+
+ const singleOrder = (itemId: any) => {
+   return orders.filter(x => x._id === itemId);
+ }
+
  return (
    <div>
      <div className="text-gray-900 bg-gray-200">
@@ -41,8 +51,36 @@ useEffect(() => {
                      {item.address} {item.city} {item.state} {item.zip}
                    </td>
                    <td className="p-3 px-5">{item.order}</td>
-                 <td className="p-3 px-5">{item.preferredStore ? item.preferredStore : 'No store was selected'}</td>
-               <td className="p-3 px-5">{<NavLink to={`/app/admin/allOrders/${item._id}`}>View Order </NavLink>}</td>
+                   <td className="p-3 px-5">
+                     {item.preferredStore
+                       ? item.preferredStore
+                       : "No store was selected"}
+                   </td>
+                   <td className="p-3 px-5">
+                     <ExcelFile
+                       filename="Orders"
+                       element={
+                         <button
+                           type="button"
+                           className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600 hover:shadow-lg"
+                         >
+                           Export Order
+                         </button>
+                       }
+                     >
+                       <ExcelSheet data={singleOrder(item._id)} name="Order">
+                         <ExcelColumn label="Name" value="name" />
+                         <ExcelColumn label="Email" value="email" />
+                         <ExcelColumn label="Phone" value="phone" />
+                         <ExcelColumn label="Address" value="address" />
+                         <ExcelColumn label="City" value="city" />
+                         <ExcelColumn label="State" value="state" />
+                         <ExcelColumn label="Zip" value="zip" />
+                         <ExcelColumn label="Order" value="order" />
+                         <ExcelColumn label="Preferred Store" value="preferredStore" />
+                       </ExcelSheet>
+                     </ExcelFile>
+                   </td>
                  </tr>
                );
              })}

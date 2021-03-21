@@ -6,6 +6,7 @@ import About from './About'
 import AdminLogin from '../src/admin/AdminLogin'
 import AdminRoute from  '../src/admin/AdminRoute'
 import AdminApp from '../src/admin/AdminApp'
+import contactUs from '../src/ContactUs'
 
 
 const Root = () => {
@@ -15,8 +16,9 @@ const Root = () => {
           <Route exact path="/" component={App} />
           <Route exact path="/app/faq" component={FAQ} />
           <Route exact path="/app/about-us" component={About} />
+          <Route exact path="/app/contact-us" component={contactUs} />
           <Route exact path="/app/admin/login" component={AdminLogin} />
-          <AdminRoute path='/app/admin' component={AdminApp} />
+          <AdminRoute path="/app/admin" component={AdminApp} />
           <Redirect to="/" />
         </Switch>
       </HashRouter>

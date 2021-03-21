@@ -87,6 +87,12 @@ return (
               >
                 About Us
               </NavLink>
+              <NavLink
+                to={"/app/contact-us"}
+                className="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900"
+              >
+                Contact Us
+              </NavLink>
             </div>
           </div>
         </div>
