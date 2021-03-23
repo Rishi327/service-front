@@ -56,6 +56,9 @@ return (
             <span className="hidden lg:block h-8 w-auto font-bold text-lg text-white mt-1 ml-1 italic text-opacity-100">
               HODOR
             </span>
+            <span className="hidden lg:block h-8 w-auto text-lg text-white mt-1 ml-1 italic text-opacity-100">
+              Beta!
+            </span>
             {/* <img
               className="block lg:hidden h-8 w-auto"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"

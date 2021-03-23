@@ -40,13 +40,13 @@ const Order = () => {
   }
   
     return (
-      <div className="relative flex items-top justify-center mt-20 bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
+      <div className="relative flex items-top justify-center mt-18 bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
         <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
           <div className="mt-8 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="p-6 mr-2 bg-gray-100 dark:bg-gray-800 sm:rounded-lg">
                 <h1 className="text-4xl sm:text-5xl text-gray-800 dark:text-white font-extrabold tracking-tight">
-                  Indian 🇮🇳 Groceries Delivered!
+                  STL Indian/Pakistani Groceries Delivered!
                 </h1>
                 <p className="text-normal text-lg sm:text-2xl font-medium text-gray-600 dark:text-gray-400 mt-2">
                   Fill in the form to place your order
@@ -177,16 +177,21 @@ const Order = () => {
                 </div>
                 <div className="flex flex-col mt-2">
                   <label htmlFor="tel" className="hidden">
-                    Preferred Grocery Store
+                    When do you need it delivered?
                   </label>
                   <select
                     name="preferredStore"
                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                     ref={register}
                   >
-                    <option value="">Preferred Grocery Store</option>
-                    <option value="seema">Seema</option>
-                    <option value="desi-bazaar">Desi Bazaar</option>
+                    <option value="">When do you need it delivered?</option>
+                    <option value="seema">Monday</option>
+                    <option value="desi-bazaar">Tuesday</option>
+                    <option value="desi-bazaar">Wednesday</option>
+                    <option value="desi-bazaar">Thursday</option>
+                    <option value="desi-bazaar">Friday</option>
+                    <option value="desi-bazaar">Saturday</option>
+                    <option value="desi-bazaar">Sunday</option>
                   </select>
                 </div>
                 <div className="flex flex-col mt-2">

@@ -1,4 +1,5 @@
 import { OrderBody } from './Order'
+import {ContactBody} from './ContactUs'
 import auth from "../src/Auth";
 const baseUrl: string = 'http://localhost:8080'
 
@@ -35,17 +36,24 @@ class Api {
     return this.__request("GET", `${baseUrl}/v1/getPublicKey`);
   }
   public adminAuth(body: object) {
-      return this.__request('POST', `${baseUrl}/v1/admin/login`, JSON.stringify(body))
+    return this.__request(
+      "POST",
+      `${baseUrl}/v1/admin/login`,
+      JSON.stringify(body)
+    );
   }
   public allOrders() {
-      return this.__request("GET", `${baseUrl}/v1/admin/getAllOrders`);
+    return this.__request("GET", `${baseUrl}/v1/admin/getAllOrders`);
+  }
+  public contactUs(body: ContactBody) {
+    return this.__request("POST", `${baseUrl}/v1/contact-us`, JSON.stringify(body));
   }
 
   public async __request(method: string, uri: string, body?: any) {
     let apiError: any;
-    const headers = setHeaders()
+    const headers = setHeaders();
     try {
-      const response = await fetch(uri, {headers, method, body: body });
+      const response = await fetch(uri, { headers, method, body: body });
       console.log(response);
       if (!response.ok) {
         const packagedError = {
@@ -55,18 +63,17 @@ class Api {
         };
         throw new Error(JSON.stringify(packagedError));
       }
-      const token: any = response.headers
-      setNewToken(token['refreshedToken'])
+      const token: any = response.headers;
+      setNewToken(token["refreshedToken"]);
       return response.json();
     } catch (error) {
-
-      // TODO: 403 issue needs to be fixed 
+      // TODO: 403 issue needs to be fixed
       console.log(error);
       apiError = JSON.parse(error);
-      if(apiError.status === 403) {
-        auth.expireCookie()
-        window.location.href = ('/')
-        return
+      if (apiError.status === 403) {
+        auth.expireCookie();
+        window.location.href = "/";
+        return;
       }
     }
     console.error(`Error sending API request to ${uri} ${method}: ${apiError}`);
