@@ -45,6 +45,9 @@ class Api {
   public allOrders() {
     return this.__request("GET", `${baseUrl}/v1/admin/getAllOrders`);
   }
+  public fullFillOrder(orderId) {
+    return this.__request("PUT", `${baseUrl}/v1/admin/fullFillOrder/${orderId}`);
+  }
   public contactUs(body: ContactBody) {
     return this.__request("POST", `${baseUrl}/v1/contact-us`, JSON.stringify(body));
   }

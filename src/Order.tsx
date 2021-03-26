@@ -12,7 +12,7 @@ export interface OrderBody {
   state: String,
   zip: String,
   order: string,
-  preferredStore: string,
+  preferredDay: string,
 }
 const Order = () => {                             
   const { register, handleSubmit} = useForm();
@@ -180,18 +180,19 @@ const Order = () => {
                     When do you need it delivered?
                   </label>
                   <select
-                    name="preferredStore"
+                    name="preferredDay"
+                    required
                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                     ref={register}
                   >
                     <option value="">When do you need it delivered?</option>
-                    <option value="seema">Monday</option>
-                    <option value="desi-bazaar">Tuesday</option>
-                    <option value="desi-bazaar">Wednesday</option>
-                    <option value="desi-bazaar">Thursday</option>
-                    <option value="desi-bazaar">Friday</option>
-                    <option value="desi-bazaar">Saturday</option>
-                    <option value="desi-bazaar">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
                   </select>
                 </div>
                 <div className="flex flex-col mt-2">
