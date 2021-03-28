@@ -1,6 +1,12 @@
 import { OrderBody } from './Order'
 import {ContactBody} from './ContactUs'
 import auth from "../src/Auth";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+const sleep = (milliseconds: number) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
+
 const baseUrl: string = 'http://localhost:8080'
 
 function setHeaders() {
@@ -54,12 +60,13 @@ class Api {
 
   public async __request(method: string, uri: string, body?: any) {
     let apiError: any;
+    let packagedError: any
     const headers = setHeaders();
     try {
       const response = await fetch(uri, { headers, method, body: body });
       console.log(response);
       if (!response.ok) {
-        const packagedError = {
+        packagedError = {
           json: await response.json(),
           status: response.status,
           statusText: response.statusText
@@ -70,14 +77,21 @@ class Api {
       setNewToken(token["refreshedToken"]);
       return response.json();
     } catch (error) {
-      // TODO: 403 issue needs to be fixed
-      console.log(error);
-      apiError = JSON.parse(error);
-      if (apiError.status === 403) {
+      if (packagedError && packagedError.status === 403) {
+         Swal.fire({
+           icon: "error",
+           title: "Oops...",
+           text: "Token expired. Please login again!",
+           showConfirmButton: true,
+           timer: 8000
+         });
+         await sleep(10000)
         auth.expireCookie();
         window.location.href = "/";
         return;
-      }
+      }     
+      apiError = JSON.parse(error);
+    
     }
     console.error(`Error sending API request to ${uri} ${method}: ${apiError}`);
     throw new Error(apiError);
