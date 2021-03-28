@@ -14,7 +14,6 @@ useEffect(() => {
     async function fetchOrders() {
         const response = await api.allOrders();
         setOrders(response.allOrders);
-        console.log(orders)
     }
     fetchOrders();
  }, []);

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from "react";
 import {useForm} from 'react-hook-form'
 import Swal from 'sweetalert2'
 import api from './Api'
@@ -14,13 +14,22 @@ export interface OrderBody {
   order: string,
   preferredDay: string,
 }
-const Order = () => {                             
+const Order = () => {        
+  const [orderCount, setorderCount] = useState(0)    
+  
+  useEffect(() => {
+      async function fetchOrders() {
+        const response = await api.getActiveOrderCount();
+        setorderCount(response.activeOrdercount);
+      }
+      fetchOrders();
+  }, []);
   const { register, handleSubmit} = useForm();
   const listClass = 'font-semibold w-40 ml-6 text-md tracking-wide'
     const onSubmit = async (data: OrderBody, e: any) => {
         data.state = 'MO'
         try {
-          const placeOrder = await api.placeOrder(data)
+          await api.placeOrder(data)
           Swal.fire({
             icon: 'success',
             title: 'Your Order was placed sucessfully',
@@ -36,10 +45,12 @@ const Order = () => {
             text: 'Something went wrong! Please Try Again.',
           })
         }
-        e.target.reset()
+      e.target.reset()
   }
   
     return (
+      <div>
+        {orderCount <= 9 ?
       <div className="relative flex items-top justify-center mt-18 bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
         <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
           <div className="mt-8 overflow-hidden">
@@ -250,6 +261,12 @@ const Order = () => {
             </div>
           </div>
         </div>
+      </div>
+      : <div className="bg-red-100 border text-center border-red-400 text-red-700 px-4 py-3 mt-8 rounded relative" role="alert">
+    <strong className="font-bold">Holy smokes! We are at capacity for this week. Please check back later! </strong>
+    <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+  </span>
+</div>}
       </div>
     );
 }

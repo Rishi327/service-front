@@ -2,7 +2,6 @@ import { OrderBody } from './Order'
 import {ContactBody} from './ContactUs'
 import auth from "../src/Auth";
 import Swal from "sweetalert2";
-import { ToastContainer, toast } from "react-toastify";
 const sleep = (milliseconds: number) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
@@ -41,6 +40,11 @@ class Api {
   public getpublicKey() {
     return this.__request("GET", `${baseUrl}/v1/getPublicKey`);
   }
+
+  public getActiveOrderCount() {
+    return this.__request("GET", `${baseUrl}/v1/getActiveOrderCount`);
+  }
+  
   public adminAuth(body: object) {
     return this.__request(
       "POST",
@@ -51,16 +55,24 @@ class Api {
   public allOrders() {
     return this.__request("GET", `${baseUrl}/v1/admin/getAllOrders`);
   }
+
   public fullFillOrder(orderId) {
-    return this.__request("PUT", `${baseUrl}/v1/admin/fullFillOrder/${orderId}`);
+    return this.__request(
+      "PUT",
+      `${baseUrl}/v1/admin/fullFillOrder/${orderId}`
+    );
   }
   public contactUs(body: ContactBody) {
-    return this.__request("POST", `${baseUrl}/v1/contact-us`, JSON.stringify(body));
+    return this.__request(
+      "POST",
+      `${baseUrl}/v1/contact-us`,
+      JSON.stringify(body)
+    );
   }
 
   public async __request(method: string, uri: string, body?: any) {
     let apiError: any;
-    let packagedError: any
+    let packagedError: any;
     const headers = setHeaders();
     try {
       const response = await fetch(uri, { headers, method, body: body });
@@ -78,20 +90,19 @@ class Api {
       return response.json();
     } catch (error) {
       if (packagedError && packagedError.status === 403) {
-         Swal.fire({
-           icon: "error",
-           title: "Oops...",
-           text: "Token expired. Please login again!",
-           showConfirmButton: true,
-           timer: 8000
-         });
-         await sleep(10000)
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Token expired. Please login again!",
+          showConfirmButton: true,
+          timer: 8000
+        });
+        await sleep(10000);
         auth.expireCookie();
         window.location.href = "/";
         return;
-      }     
+      }
       apiError = JSON.parse(error);
-    
     }
     console.error(`Error sending API request to ${uri} ${method}: ${apiError}`);
     throw new Error(apiError);
