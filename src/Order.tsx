@@ -34,8 +34,9 @@ const Order = () => {
             icon: 'success',
             title: 'Your Order was placed sucessfully',
             showConfirmButton: false,
-            timer: 3000
+            timer: 5000
           })
+          window.location.reload()
         } catch(error){
           console.log('Failed to send order request...')
           console.log(error)
@@ -50,7 +51,7 @@ const Order = () => {
   
     return (
       <div>
-        {orderCount >= 9 ?
+        {orderCount <= 9 ?
       <div className="relative flex items-top justify-center mt-18 bg-white dark:bg-gray-900 sm:items-center sm:pt-0">
         <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
           <div className="mt-8 overflow-hidden">
