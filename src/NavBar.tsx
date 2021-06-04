@@ -1,6 +1,9 @@
-import React from 'react'
+import React , {FunctionComponent, useState} from 'react'
 import { NavLink } from 'react-router-dom'
-const NavBar = () => {
+
+const NavBar:FunctionComponent<{ initial?: boolean }> = ({ initial = false }) => {
+
+const [menu,setMenu] = useState(initial)
 
 return (
   <nav className="bg-gray-800">
@@ -10,6 +13,7 @@ return (
           <button
             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             aria-expanded="false"
+            onClick={() => setMenu(!menu)}
           >
             <span className="sr-only">Open main menu</span>
 
@@ -45,6 +49,29 @@ return (
               />
             </svg>
           </button>
+          <div className="ml-20 flex-shrink-0 flex items-center">
+            <img
+              className="lg:block h-8 mb-2 w-auto"
+              src="grocery.svg"
+              alt="Workflow"
+            />
+            <span className="lg:block h-8 w-auto font-bold text-lg text-white mt-1 ml-1 italic text-opacity-100">
+              HODOR
+            </span>
+            <span className="lg:block h-8 w-auto text-lg text-white mt-1 ml-1 italic text-opacity-100">
+              Beta!
+            </span>
+            {/* <img
+              className="block lg:hidden h-8 w-auto"
+              src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+              alt="Workflow"
+            /> */}
+            {/* <img
+              className="hidden lg:block h-8 w-auto"
+              src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+              alt="Workflow"
+            /> */}
+          </div>
         </div>
         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
           <div className="flex-shrink-0 flex items-center">
@@ -102,7 +129,7 @@ return (
       </div>
     </div>
 
-    <div className="hidden sm:hidden">
+    {menu && <div >
       <div className="px-2 pt-2 pb-3 space-y-1">
         <NavLink
           to={"/"}
@@ -123,7 +150,7 @@ return (
           About Us
         </NavLink>
       </div>
-    </div>
+    </div> }
   </nav>
 );}
 
